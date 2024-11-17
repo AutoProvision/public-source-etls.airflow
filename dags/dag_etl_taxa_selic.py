@@ -3,6 +3,7 @@ import requests
 from airflow.decorators import dag, task
 import pandas as pd
 import os
+import fastparquet
 
 DATA_PATH = '/opt/airflow/data/taxas-selic'
 
