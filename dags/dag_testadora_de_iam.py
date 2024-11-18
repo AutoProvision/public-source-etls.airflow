@@ -1,8 +1,6 @@
 from datetime import datetime, timedelta
-import requests
-from airflow.decorators import dag, task
-import pandas as pd
 import boto3
+from airflow.decorators import dag, task
 
 default_args = {
     'owner': 'airflow',
@@ -24,8 +22,16 @@ def dag_etl_taxa_selic():
     @task
     def teste1():
         s3 = boto3.client('s3')
+
         response = s3.list_buckets()
-        print(response)
+        print("Buckets disponíveis:", response)
+
+        bucket_name = "manoel-almeida"
+        file_name = "teste.txt"
+        content = "Este é um teste de upload de arquivo para o bucket S3."
+
+        s3.put_object(Bucket=bucket_name, Key=file_name, Body=content)
+        print(f"Arquivo '{file_name}' enviado com sucesso para o bucket '{bucket_name}'.")
 
     teste1 = teste1()
 
